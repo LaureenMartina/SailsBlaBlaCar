@@ -36,6 +36,91 @@ module.exports.routes = {
   '/sessions/destroy': {
     controller: 'SessionsController',
     action: 'destroy'
+  },
+
+  /************** User routes ****************/
+  'GET /user': {
+    controller: 'UserController',
+    action: 'index'
+  },
+
+  'POST /user/create': {
+    controller: 'UserController',
+    action: 'create'
+  },
+
+  'POST /user/edit/:id': {
+    controller: 'UserController',
+    action: 'edit'
+  },
+
+  'GET /user/:id': {
+    controller: 'UserController',
+    action: 'show'
+  },
+
+  /************** Car routes ****************/
+
+'GET /cars': {
+  controller: 'CarsController',
+  action: 'index'
+},
+
+'POST /cars/create': {
+  controller: 'CarsController',
+  action: 'create'
+},
+
+'POST /cars/edit/:id': {
+  controller: 'CarsController',
+  action: 'edit'
+},
+
+'GET /cars/:id': {
+  controller: 'CarsController',
+  action: 'show'
+},
+
+'GET /cars/:id/destroy': {
+  controller: 'CarsController',
+  action: 'delete'
+},
+
+/************** Trip routes ****************/
+
+  'GET /trip': {
+    controller: 'TripController',
+    action: 'index'
+  },
+
+  'POST /trip/create': {
+    controller: 'TripController',
+    action: 'create'
+  },
+
+  'POST /trip/edit/:id': {
+    controller: 'TripController',
+    action: 'edit'
+  },
+
+  'GET /trip/:id': {
+    controller: 'TripController',
+    action: 'show'
+  },
+
+  'POST /trip/:id/join': {
+    controller: 'TripController',
+    action: 'join'
+  },
+
+  'POST /trip/:id/launch': {
+    controller: 'TripController',
+    action: 'launch'
+  },
+
+  'POST /trip/:id/finish': {
+    controller: "TripController",
+    action: 'finish'
   }
 
   /***************************************************************************
