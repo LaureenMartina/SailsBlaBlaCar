@@ -7,7 +7,7 @@
 
 module.exports = {
   index: function(req, res, next){
-    var trips = Trip.find().populate('participants').exec(function(err, trips){
+    var trips = Trip.find().populate('participants').populate('car').exec(function(err, trips){
       if (err) {
         return res.status(500).send(err);
       }else{

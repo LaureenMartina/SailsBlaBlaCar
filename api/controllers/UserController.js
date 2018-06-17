@@ -19,7 +19,7 @@ module.exports = {
   create: function(req, res, next){
     var user = User.create(req.allParams()).exec(function(err, user){
       if(err){
-        res.status(500).send(err):
+        res.status(500).send(err);
       }else{
         res.status(200).send("User created");
       }

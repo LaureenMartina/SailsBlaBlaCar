@@ -81,7 +81,7 @@ module.exports.routes = {
   action: 'show'
 },
 
-'GET /cars/:id/destroy': {
+'POST /cars/:id/destroy': {
   controller: 'CarsController',
   action: 'delete'
 },

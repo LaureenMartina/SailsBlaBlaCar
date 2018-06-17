@@ -8,7 +8,7 @@
 //afficher ttes les voitures et alimenter 'trip'
 module.exports = {
   index: function(req, res, next){
-    var cars = Cars.find().populate('trips').exec(function(err, cars){
+    var car = Cars.find().populate('trips').exec(function(err, cars){
       if(err){
         res.status(500).send(err);
       }else{
@@ -41,7 +41,7 @@ module.exports = {
 
   //afficher (trouver) les informations selon l'id d'une voiture et remplir 'trip'
   show: function(req, res, next){
-    var car: Cars.findOne({id: req.params.id}).populate('trips').exec(function(err, car){
+    var car = Cars.findOne({id: req.params.id}).populate('trips').exec(function(err, car){
       if(err){
         res.status(500).send("No car found");
       }else{
@@ -52,19 +52,24 @@ module.exports = {
 
   //trouver la voiture (id)
   delete: function(req, res, next){
-    Trip.findOne({car: req.params.id, status: {'!=' : [1]} }).then(function(trip){
-      if (!trip) {
-        Cars.destroy({id: req.params.id}).then(function(car){
-          return res.status(200).send('Car destroyed');
+    var car = Cars.findOne({owner: req.body.driver}).exec(function(err, car){
+      if(car.id == req.params.id){
+        Trip.findOne({car: req.params.id, status: {'!=' : [1]} }).then(function(trip){
+          if (!trip) {
+            Cars.destroy({id: req.params.id}).then(function(car){
+              return res.status(200).send('Car destroyed');
+            });
+          }else{
+            Trip.destroy({car: req.params.id }).then(function(deleted){
+              Cars.destroy({id: req.params.id}).then(function(delete_car){
+                return res.status(200).send("Car destroyed with it's innactive trips");
+              });
+            });
+          }
         });
       }else{
-        Trip.destroy({car: req.params.id }).then(function(deleted){
-          Cars.destroy({id: req.params.id}).then(function(delete_car){
-            return res.status(200).send("Car destroyed with it's innactive trips");
-          });
-        });
+        return res.status(401).send("Invalid owner");
       }
     });
   }
-
 };

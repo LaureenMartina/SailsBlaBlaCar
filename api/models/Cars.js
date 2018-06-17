@@ -23,6 +23,10 @@ module.exports = {
     owner: {
         model: 'User',
         required: true
+    },
+    trips: {
+      collection: 'Trip',
+      via: 'car'
     }
   },
 
