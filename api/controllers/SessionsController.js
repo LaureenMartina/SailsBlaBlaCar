@@ -7,14 +7,6 @@
 var bcrypt = require('bcrypt');
 module.exports = {
 
-  'new': function(req,res){
-    var oldDateObj = new Date();
-    var newDateObj = new Date(oldDateObj.getTime() + 60000 );
-    req.session.cookie.expires = newDateObj;
-    req.session.authenticated = true;
-    console.log(req.session);
-  },
-
   create: async function(req, res, next){
     if (!req.param('username') || !req.param('password')) {
       var usernamePasswordRequiredError = [{name: 'usernamePasswordRequired', message: 'Il faut saisir le pseudo et le mot de passe'}];
@@ -33,6 +25,8 @@ module.exports = {
         var usernamePasswordMismatchError = [{name: 'usernamePasswordMismatchError', message: 'Le mot de passe incorrect'}]
         return next(res.json(usernamePasswordMismatchError));
       }else{
+        req.session.authenticated = true;
+        req.session.User = authUser;
         return next(res.ok());
       }
       return next(res.json(valid));
@@ -41,6 +35,6 @@ module.exports = {
 
   destroy: function(req, res, next){
     req.session.destroy();
-    return("Vous êtes déconnecté");
+    return req.session.destroy();
   }
 };
