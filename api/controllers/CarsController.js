@@ -22,7 +22,7 @@ module.exports = {
     var car = Cars.create(req.allParams()).exec(function(err, car){
       if(err){
         res.status(500).send(err);
-      }ele{
+      }else{
         res.status(200).send("Car created");
       }
     });
