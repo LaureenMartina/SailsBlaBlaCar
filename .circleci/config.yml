@@ -4,8 +4,7 @@ jobs:
         docker:
             # specify the version you desire here
             - image: circleci/node:7.10
-
-            working_directory: ~/SailsBlaBlaCar
+                working_directory: ~/SailsBlaBlaCar
 
             steps:
                 - checkout
