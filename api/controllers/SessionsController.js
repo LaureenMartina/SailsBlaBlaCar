@@ -21,6 +21,10 @@ module.exports = {
         }
 
         bcrypt.compare(req.param('password'), authUser.encryptedPassword, function(err, valid){ // bcrypt = crypter password valid = partie de promesse
+            if(err){
+                res.status(500).send("No session found");
+            }
+
             if (!valid) {
                 var usernamePasswordMismatchError = [{name: 'usernamePasswordMismatchError', message: 'Le mot de passe incorrect'}];
                 return next(res.json(usernamePasswordMismatchError));

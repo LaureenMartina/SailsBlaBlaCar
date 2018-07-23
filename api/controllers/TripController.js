@@ -63,7 +63,9 @@ module.exports = {
     //lier un voyage spécifique à une voiture
     join: function(req, res, next){
         Trip.findOne({id: req.params.id }).populate('participants').then(function(trip){
-            if (!trip) return res.status(500).send("No trip found");
+            if (!trip) {
+                return res.status(500).send("No trip found");
+            }
             Cars.findOne({id: trip.car}).then(function(car){
                 if(!car) {
                     return res.status(500).send("No car found");

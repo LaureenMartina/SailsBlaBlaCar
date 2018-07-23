@@ -53,6 +53,10 @@ module.exports = {
     //trouver la voiture (id)
     delete: function(req, res, next){
         var car = Cars.findOne({owner: req.body.driver}).exec(function(err, car){
+            if(err){
+                res.status(500).send("No car found");
+            }
+
             if(car.id === req.params.id){
                 Trip.findOne({car: req.params.id, status: {'!=' : [1]} }).then(function(trip){
                     if (!trip) {
